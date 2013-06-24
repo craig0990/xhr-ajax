@@ -1,0 +1,8 @@
+{
+  "name": "xhr-ajax",
+  "version": "1.0.0",
+  "main": "xhr-ajax.js",
+  "dependencies": {
+    "xhr": "ilinsky/xmlhttprequest"
+  }
+}
