@@ -1,4 +1,4 @@
-# xhr-ajax (v1.0.0)
+# xhr-ajax (v2.0.0)
 
 A small wrapper that depends on [XMLHttpRequest.js](http://github.com/ilinsky/xmlhttprequest). This library does _absolutely nothing_ except abstract `XMLHttpRequest `into a global `ajax` function similar to jQuery.
 
@@ -16,20 +16,26 @@ Alternatively you may use it with an AMD loader such as RequireJS or as a tradit
 
 ## Usage
 
-`ajax(url, [options])`
+`ajax(url, [options]) : Promise`
 
 `url` is the request URL, including query parameters if any.
 
 `options` is an optional object which may contain the following keys:
 
 * `method` - a string representing the HTTP request method - defaults to `GET`
+* `url` - the request URL (only used if `options` is the only argument)
 * `headers` - an object of key-values representing HTTP request headers
 * `data` - a string representing the HTTP request payload
 * `async` - a boolean value - defaults to `true`
-* `success` - a success callback (where the response status equals `200`) which accepts `response` and `xhr` as parameters
-* `error` - an error callback (where the response status does not equal `200`) which accepts `status`, `statusText` and `xhr` as parameters
+* `user` - a string representing the HTTP Basic Auth username
+* `pass` - a string representing the HTTP Basic Auth password
 
-The `success` and `error` callbacks receive the underlying [`XMLHttpRequest`](http://www.w3.org/TR/XMLHttpRequest/) object as their final argument.
+The promise is resolved or rejected with the underlying `XMLHttpRequest` object.
+
+### Request Data
+
+This library does not provide any automatic serialisation - if you need to send JSON data in the request, you are
+responsible for encoding it yourself beforehand.
 
 ## Examples
 
@@ -38,14 +44,12 @@ The `success` and `error` callbacks receive the underlying [`XMLHttpRequest`](ht
 	ajax('/api/users?from=50&to=100', {
     	headers: {
         	'X-Custom-Auth-Header': '1234'
-        },
-        success: function(response, xhr) {
-        	console.log('Got users', JSON.parse(response));
-        },
-        error: function(status, message, xhr) {
-        	console.error('Users API returned', status, message);
-            console.log(xhr);
         }
+    }).then(function(xhr) {
+        console.log('Got users', JSON.parse(xhr.responseTest));
+    }, function(xhr) {
+        console.error('Users API returned', xhr.status, xhr.statusText);
+        console.log(xhr);
     });
 
 ### POST request
@@ -54,16 +58,14 @@ The `success` and `error` callbacks receive the underlying [`XMLHttpRequest`](ht
     	method: 'POST',
         headers: {
         	'X-Custom-Auth-Header': '1234',
-            'Content-Type'
+            'Content-Type': 'application/json'
         },
-        success: function(response, xhr) {
-        	var data = JSON.parse(response);
-        	console.log('Created user', data.id);
-            console.log('Response headers', xhr.getAllResponseHeaders());
-        },
-        error: function(status, message, xhr) {
-        	var data = JSON.parse(xhr.responseText);
-        	console.error('Users API returned', status, message, 'with data', data);
-            console.log('Response headers', xhr.getAllResponseHeaders());
-        }
+        data: JSON.stringify({
+            name: 'John Doe'
+        })
+    }).then(function(xhr) {
+        console.log('Got response', JSON.parse(xhr.responseTest));
+    }, function(xhr) {
+        console.error('Users API returned', xhr.status, xhr.statusText);
+        console.log(xhr);
     });

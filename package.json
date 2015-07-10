@@ -1,6 +1,6 @@
 {
   "name": "xhr-ajax",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A very minimal wrapper around the XMLHttpRequest object",
   "main": "xhr-ajax.js",
   "scripts": {
@@ -20,8 +20,10 @@
     "url": "https://github.com/craig0990/xhr-ajax/issues"
   },
   "devDependencies": {
+    "david": "^6.1.6",
     "grunt": "~0.4.1",
-    "grunt-contrib-uglify": "~0.2.2",
-    "grunt-contrib-jshint": "~0.6.0"
+    "grunt-contrib-jshint": "~0.11.2",
+    "grunt-contrib-qunit": "~0.7.0",
+    "grunt-contrib-uglify": "~0.9.1"
   }
 }
