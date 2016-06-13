@@ -1,6 +1,6 @@
 {
   "name": "xhr-ajax",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A very minimal wrapper around the XMLHttpRequest object",
   "main": "xhr-ajax.js",
   "scripts": {
