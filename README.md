@@ -69,3 +69,12 @@ responsible for encoding it yourself beforehand.
         console.error('Users API returned', xhr.status, xhr.statusText);
         console.log(xhr);
     });
+
+## Project Status
+
+This library is not _actively_ maintained, but I will happily accept pull
+requests and do my best to fix any bug reports.
+
+## License
+
+Licensed under the MIT license. See the [LICENSE](./LICENSE.md) file for more information.
