@@ -46,7 +46,7 @@ responsible for encoding it yourself beforehand.
         	'X-Custom-Auth-Header': '1234'
         }
     }).then(function(xhr) {
-        console.log('Got users', JSON.parse(xhr.responseTest));
+        console.log('Got users', JSON.parse(xhr.responseText));
     }, function(xhr) {
         console.error('Users API returned', xhr.status, xhr.statusText);
         console.log(xhr);
@@ -64,7 +64,7 @@ responsible for encoding it yourself beforehand.
             name: 'John Doe'
         })
     }).then(function(xhr) {
-        console.log('Got response', JSON.parse(xhr.responseTest));
+        console.log('Got response', JSON.parse(xhr.responseText));
     }, function(xhr) {
         console.error('Users API returned', xhr.status, xhr.statusText);
         console.log(xhr);
